@@ -21,3 +21,10 @@
   color: white;
   font-family: 'Bree Serif';
 }
+.win-status {
+  color: #18ed66;
+}
+
+.loss-status {
+  color: #e31a1a;
+}

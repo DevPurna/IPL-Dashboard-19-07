@@ -15,6 +15,11 @@ const MatchCard = ({eachMatchDetails}) => {
     secondInnings: eachMatchDetails.second_innings,
     matchStatus: eachMatchDetails.match_status,
   }
+  const statusClassName =
+    formattedeachMatchDetails.matchStatus === 'Won'
+      ? 'win-status'
+      : 'loss-status'
+
   return (
     <li className="match-card-item">
       <img
@@ -26,7 +31,7 @@ const MatchCard = ({eachMatchDetails}) => {
         {formattedeachMatchDetails.competingTeam}
       </p>
       <p className="match-card-result">{formattedeachMatchDetails.result}</p>
-      <p className="match-card-status">
+      <p className={`match-card-status ${statusClassName}`}>
         {formattedeachMatchDetails.matchStatus}
       </p>
     </li>
