@@ -1,4 +1,6 @@
 import {Component} from 'react'
+import {PieChart, Pie, Cell, Tooltip, Legend} from 'recharts'
+
 import Loader from 'react-loader-spinner'
 
 import MatchCard from '../MatchCard'
@@ -15,6 +17,12 @@ const teamBackgroundColors = {
   SH: '#f26d22',
   RR: '#da237b',
   DC: '#4f5db0',
+}
+
+const COLORS = {
+  Won: '#00C49F',
+  Lost: '#FF8042',
+  Draw: '#8884d8',
 }
 
 class TeamMatches extends Component {
@@ -52,17 +60,76 @@ class TeamMatches extends Component {
     this.setState({teamData: updatedData, isLoading: false})
   }
 
+  onClickBack = () => {
+    const {history} = this.props
+    history.push('/')
+  }
+
   renderTeamDetails = () => {
     const {teamData} = this.state
     const {teamBannerUrl, latestMatchDetails, recentMatches} = teamData
 
+    // prettier-ignore
+    const won = recentMatches.filter(match => match.match_status === 'Won').length
+    // prettier-ignore
+    const lost = recentMatches.filter(
+      match => match.match_status === 'Lost',
+    ).length
+    // prettier-ignore
+    const draw = recentMatches.filter(
+      match => match.match_status === 'Draw',
+      ).length
+
+    const pieChartData = [
+      {name: 'Won', value: won},
+      {name: 'Lost', value: lost},
+      {name: 'Draw', value: draw},
+    ]
+
     return (
       <div className="matches-info">
+        <button
+          type="button"
+          className="back-button"
+          onClick={this.onClickBack}
+        >
+          Back
+        </button>
         <img
           className="teamBanner-teamMatches"
           src={teamBannerUrl}
           alt="team banner"
         />
+        <div
+          style={{
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+            padding: '12px',
+            borderRadius: '16px',
+            backgroundColor: '#fff',
+            maxWidth: '450px',
+            marginTop: '20px',
+            marginLeft: '75px',
+          }}
+          className="pie-chart-container"
+        >
+          <h3 style={{marginTop: '30px'}}>Match Stats</h3>
+          <PieChart width={400} height={300} data-testid="pieChart">
+            <Pie
+              data={pieChartData}
+              cx="50%"
+              cy="50%"
+              outerRadius={100}
+              label
+              dataKey="value"
+            >
+              {pieChartData.map(entry => (
+                <Cell key={entry.name} fill={COLORS[entry.name]} />
+              ))}
+            </Pie>
+            <Tooltip />
+            <Legend />
+          </PieChart>
+        </div>
         <p className="latest-matches-text">Latest Matches</p>
         <LatestMatch latestMatchDetails={latestMatchDetails} />
         <ul className="team-matches-recent-matches">

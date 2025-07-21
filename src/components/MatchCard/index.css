@@ -2,6 +2,7 @@
 .match-card-item {
   list-style-type: none;
   color: white;
+  width: 300px;
   display: flex;
   flex-direction: column;
   background-color: #1e293b;

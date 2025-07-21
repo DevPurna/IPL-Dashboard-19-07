@@ -25,4 +25,5 @@
   margin: 15px;
   padding: 15px; /* Ensure padding and border are included in width */
   max-width: 40%;
+  text-decoration: none;
 }

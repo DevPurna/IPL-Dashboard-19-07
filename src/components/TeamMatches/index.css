@@ -29,3 +29,26 @@
 .latest-matches-text {
   margin-left: 5%;
 }
+.back-button {
+  background-color: #3488ef;
+  border: none;
+  width: 70px;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  margin-left: 75px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
+  position: relative;
+  z-index: 1; /* Ensure it's on top if needed */
+}
+
+.back-button:hover {
+  background-color: #1f6edb;
+  transform: scale(1.05);
+  z-index: 2; /* Increase z-index slightly if overlapping is needed */
+}
